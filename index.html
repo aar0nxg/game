@@ -11,20 +11,18 @@
       height: 100vh;
       width: 100vw;
       overflow: hidden;
-      font-family: 'Courier New', monospace;
       background: url('intro_bg.png') no-repeat center center fixed;
       background-size: cover;
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
-      position: relative;
+      font-family: 'Courier New', monospace;
     }
 
     .doggo-container {
       position: relative;
-      width: 60vw;
-      max-width: 280px;
+      width: 65vw;
+      max-width: 350px;
       aspect-ratio: 1 / 1;
     }
 
@@ -38,39 +36,25 @@
     .heart-btn {
       position: absolute;
       left: 50%;
-      top: 58%;
+      top: 71%;
       transform: translate(-50%, -50%);
-      font-size: 12vw;
-      max-font-size: 80px;
+      font-size: 3.8em;
       background: none;
       border: none;
       color: #ff5c8d;
       cursor: pointer;
       animation: pulse 1.5s infinite;
       text-shadow: 0 0 10px #ff99bb;
+      z-index: 2;
     }
 
     @keyframes pulse {
       0%, 100% {
         transform: translate(-50%, -50%) scale(1);
-        text-shadow: 0 0 10px #ff99bb;
       }
       50% {
         transform: translate(-50%, -50%) scale(1.2);
-        text-shadow: 0 0 25px #ff99bb;
       }
-    }
-
-    .bottom-text {
-      position: absolute;
-      bottom: 5vh;
-      color: white;
-      font-size: 4vw;
-      max-font-size: 20px;
-      text-shadow: 1px 1px 4px #000;
-      text-align: center;
-      width: 100%;
-      padding: 0 20px;
     }
   </style>
 </head>
@@ -79,6 +63,5 @@
     <img class="doggo-img" src="intro_doggo.png" alt="Doggo" />
     <button class="heart-btn" onclick="location.href='game.html'">❤️</button>
   </div>
-  <div class="bottom-text">Click Doggo’s heart to play the tape…</div>
 </body>
 </html>
