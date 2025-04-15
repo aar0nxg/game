@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>The Otter & Doggo Tape</title>
   <style>
     body {
@@ -112,10 +112,9 @@
   </style>
 </head>
 <body>
-  <!-- removed <audio> tag for autoplay fix -->
 
   <div class="avatar" id="avatar" style="background-image: url('doggo.png');"></div>
-  <img id="sceneImage" class="scene-image" src="" alt="scene image" />
+  <img id="sceneImage" class="scene-image" src="" alt="scene" />
   <div class="dialogue" id="dialogue">Welcome, Otter. Doggo is waiting for you 💬</div>
   <div class="choices" id="choices"></div>
 
@@ -131,11 +130,11 @@
     const audio = new Audio('music.mp3');
     audio.loop = true;
 
-    // 🔊 autoplay fix for iPhone
     function unlockAudio() {
       audio.play().catch(() => {});
       window.removeEventListener('click', unlockAudio);
     }
+
     window.addEventListener('click', unlockAudio);
 
     const story = [
@@ -177,7 +176,7 @@
     function typeWriter(text, callback) {
       let i = 0;
       dialogueEl.innerHTML = "";
-      choicesEl.innerHTML = ""; // 🔥 hide buttons while typing
+      choicesEl.innerHTML = ""; // hide choices while typing
       const speed = 35;
 
       function type() {
@@ -212,6 +211,7 @@
             choicesEl.appendChild(btn);
           });
         });
+
       } else {
         const isGood = mood >= 2;
         const finalImage = isGood ? "ending_good.png" : "ending_bad.png";
@@ -222,8 +222,7 @@
         avatarEl.style.backgroundImage = `url('${finalAvatar}')`;
         sceneImage.src = finalImage;
         sceneImage.className = finalClass;
-
-        choicesEl.innerHTML = ""; // 🔥 clear all buttons before replay
+        choicesEl.innerHTML = "";
 
         typeWriter(finalText, () => {
           const replayBtn = document.createElement("button");
@@ -232,4 +231,19 @@
           replayBtn.style.marginTop = "20px";
           replayBtn.style.background = "#220033";
           replayBtn.style.border = "2px solid #ff99cc";
-          replay
+          replayBtn.style.fontSize = "1em";
+          replayBtn.style.padding = "12px";
+          replayBtn.style.borderRadius = "8px";
+          replayBtn.style.color = "white";
+          replayBtn.style.boxShadow = "0 0 12px #ff66aa";
+          replayBtn.onmouseover = () => replayBtn.style.background = "#ff66aa";
+          replayBtn.onmouseout = () => replayBtn.style.background = "#220033";
+          choicesEl.appendChild(replayBtn);
+        });
+      }
+    }
+
+    showScene();
+  </script>
+</body>
+</html>
