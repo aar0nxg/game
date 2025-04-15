@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>The Otter & Doggo Tape</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     body {
       margin: 0;
@@ -109,14 +110,27 @@
       filter: grayscale(80%) brightness(0.7);
       box-shadow: 0 0 10px rgba(0,0,0,0.3);
     }
+
+    .center {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto;
+    }
   </style>
 </head>
 <body>
 
-  <div class="avatar" id="avatar" style="background-image: url('doggo.png');"></div>
-  <img id="sceneImage" class="scene-image" src="" alt="scene" />
-  <div class="dialogue" id="dialogue">Welcome, Otter. Doggo is waiting for you 💬</div>
-  <div class="choices" id="choices"></div>
+  <div class="avatar" id="avatar" style="background-image: url('doggo.png'); display: none;"></div>
+  <img id="sceneImage" class="scene-image" src="" alt="scene" style="display: none;" />
+  <div class="dialogue" id="dialogue" class="center">
+    Hiii pretty Otter 💗<br><br>
+    Welcome to the Doggo Tape…<br><br>
+    Make sure to choose your options wisely.....<br><br>
+    After all, you are the protector of Doggo’s heart... 💌
+  </div>
+  <div class="choices" id="choices" class="center">
+    <button onclick="startGame()">💗 Continue</button>
+  </div>
 
   <script>
     const dialogueEl = document.getElementById("dialogue");
@@ -129,13 +143,6 @@
 
     const audio = new Audio('music.mp3');
     audio.loop = true;
-
-    function unlockAudio() {
-      audio.play().catch(() => {});
-      window.removeEventListener('click', unlockAudio);
-    }
-
-    window.addEventListener('click', unlockAudio);
 
     const story = [
       {
@@ -176,7 +183,7 @@
     function typeWriter(text, callback) {
       let i = 0;
       dialogueEl.innerHTML = "";
-      choicesEl.innerHTML = ""; // hide choices while typing
+      choicesEl.innerHTML = "";
       const speed = 35;
 
       function type() {
@@ -198,6 +205,7 @@
         avatarEl.style.backgroundImage = `url('${s.avatar}')`;
         sceneImage.src = s.image;
         sceneImage.className = "scene-image visible";
+        sceneImage.style.display = "block";
 
         typeWriter(s.text, () => {
           s.choices.forEach((c) => {
@@ -211,7 +219,6 @@
             choicesEl.appendChild(btn);
           });
         });
-
       } else {
         const isGood = mood >= 2;
         const finalImage = isGood ? "ending_good.png" : "ending_bad.png";
@@ -236,14 +243,17 @@
           replayBtn.style.borderRadius = "8px";
           replayBtn.style.color = "white";
           replayBtn.style.boxShadow = "0 0 12px #ff66aa";
-          replayBtn.onmouseover = () => replayBtn.style.background = "#ff66aa";
-          replayBtn.onmouseout = () => replayBtn.style.background = "#220033";
           choicesEl.appendChild(replayBtn);
         });
       }
     }
 
-    showScene();
+    function startGame() {
+      audio.play().catch(() => {});
+      avatarEl.style.display = "block";
+      sceneImage.style.display = "block";
+      showScene();
+    }
   </script>
 </body>
 </html>
