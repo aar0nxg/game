@@ -87,12 +87,27 @@
       margin: 0 auto 30px;
       border-radius: 12px;
       box-shadow: 0 8px 20px rgba(0,0,0,0.5);
-      transition: opacity 1s ease;
+      transition: opacity 1s ease, filter 1s ease;
       opacity: 0;
     }
 
     .scene-image.visible {
       opacity: 1;
+    }
+
+    .scene-image.sparkle {
+      animation: sparkle 3s infinite alternate;
+      box-shadow: 0 0 20px #ff66aa, 0 0 40px #ffaadd;
+    }
+
+    @keyframes sparkle {
+      from { filter: brightness(1.1) saturate(1.3); }
+      to   { filter: brightness(1.3) saturate(1.7); }
+    }
+
+    .scene-image.faded {
+      filter: grayscale(80%) brightness(0.7);
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
     }
   </style>
 </head>
@@ -175,8 +190,7 @@
         const s = story[scene];
         avatarEl.style.backgroundImage = `url('${s.avatar}')`;
         sceneImage.src = s.image;
-        sceneImage.classList.remove("visible");
-        setTimeout(() => sceneImage.classList.add("visible"), 50);
+        sceneImage.className = "scene-image visible";
 
         typeWriter(s.text, () => {
           choicesEl.innerHTML = "";
@@ -192,12 +206,17 @@
           });
         });
       } else {
-        const endText = mood >= 2 ? endingGood : endingBad;
-        avatarEl.style.backgroundImage = `url('${mood >= 2 ? "doggo.png" : "sad_doggo.png"}')`;
-        sceneImage.src = mood >= 2 ? "scene3.png" : "scene3.png"; // you can update with ending image if needed
-        sceneImage.classList.remove("visible");
-        setTimeout(() => sceneImage.classList.add("visible"), 50);
-        typeWriter(endText);
+        const isGood = mood >= 2;
+        const finalImage = isGood ? "ending_good.png" : "ending_bad.png";
+        const finalClass = isGood ? "scene-image visible sparkle" : "scene-image visible faded";
+        const finalText = isGood ? endingGood : endingBad;
+        const finalAvatar = isGood ? "doggo.png" : "sad_doggo.png";
+
+        avatarEl.style.backgroundImage = `url('${finalAvatar}')`;
+        sceneImage.src = finalImage;
+        sceneImage.className = finalClass;
+
+        typeWriter(finalText);
         choicesEl.innerHTML = "";
       }
     }
@@ -206,3 +225,4 @@
   </script>
 </body>
 </html>
+
