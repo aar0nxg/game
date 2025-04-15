@@ -112,10 +112,7 @@
   </style>
 </head>
 <body>
-  <audio autoplay loop preload="auto">
-    <source src="music.mp3" type="audio/mp3">
-    Your browser does not support the audio element.
-  </audio>
+  <!-- removed <audio> tag for autoplay fix -->
 
   <div class="avatar" id="avatar" style="background-image: url('doggo.png');"></div>
   <img id="sceneImage" class="scene-image" src="" alt="scene image" />
@@ -130,6 +127,16 @@
 
     let mood = 0;
     let scene = 0;
+
+    const audio = new Audio('music.mp3');
+    audio.loop = true;
+
+    // 🔊 autoplay fix for iPhone
+    function unlockAudio() {
+      audio.play().catch(() => {});
+      window.removeEventListener('click', unlockAudio);
+    }
+    window.addEventListener('click', unlockAudio);
 
     const story = [
       {
@@ -170,6 +177,7 @@
     function typeWriter(text, callback) {
       let i = 0;
       dialogueEl.innerHTML = "";
+      choicesEl.innerHTML = ""; // 🔥 hide buttons while typing
       const speed = 35;
 
       function type() {
@@ -191,9 +199,6 @@
         avatarEl.style.backgroundImage = `url('${s.avatar}')`;
         sceneImage.src = s.image;
         sceneImage.className = "scene-image visible";
-
-        // ✨ FIX 1: clear buttons while typing
-        choicesEl.innerHTML = "";
 
         typeWriter(s.text, () => {
           s.choices.forEach((c) => {
@@ -218,8 +223,7 @@
         sceneImage.src = finalImage;
         sceneImage.className = finalClass;
 
-        // ✨ FIX 2: hide all old buttons at ending
-        choicesEl.innerHTML = "";
+        choicesEl.innerHTML = ""; // 🔥 clear all buttons before replay
 
         typeWriter(finalText, () => {
           const replayBtn = document.createElement("button");
@@ -228,19 +232,4 @@
           replayBtn.style.marginTop = "20px";
           replayBtn.style.background = "#220033";
           replayBtn.style.border = "2px solid #ff99cc";
-          replayBtn.style.fontSize = "1em";
-          replayBtn.style.padding = "12px";
-          replayBtn.style.borderRadius = "8px";
-          replayBtn.style.color = "white";
-          replayBtn.style.boxShadow = "0 0 12px #ff66aa";
-          replayBtn.onmouseover = () => replayBtn.style.background = "#ff66aa";
-          replayBtn.onmouseout = () => replayBtn.style.background = "#220033";
-          choicesEl.appendChild(replayBtn);
-        });
-      }
-    }
-
-    showScene();
-  </script>
-</body>
-</html>
+          replay
