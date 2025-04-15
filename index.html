@@ -1,36 +1,61 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>The Otter & Doggo Tape</title>
   <style>
-    body {
+    html, body {
       margin: 0;
+      padding: 0;
       height: 100vh;
-      background: linear-gradient(to bottom, #1e0033, #330022);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
+      width: 100vw;
+      overflow: hidden;
       font-family: 'Courier New', monospace;
-      color: #fff;
+      background: url('intro.png') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
     }
-    h1 { font-size: 2em; color: #ffccff; }
-    button {
-      font-size: 1.2em;
-      padding: 10px 20px;
-      background-color: #661144;
-      color: white;
+
+    .play-heart {
+      font-size: 80px;
+      background: none;
       border: none;
-      border-radius: 8px;
+      color: #ff5c8d;
+      text-shadow: 0 0 15px #ff99bb;
       cursor: pointer;
+      animation: pulse 1.5s infinite;
+    }
+
+    .play-heart:hover {
+      color: #ff80aa;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+        text-shadow: 0 0 15px #ff99bb;
+      }
+      50% {
+        transform: scale(1.2);
+        text-shadow: 0 0 25px #ff99bb;
+      }
+    }
+
+    .overlay-text {
+      position: absolute;
+      bottom: 40px;
+      font-size: 18px;
+      color: white;
+      text-shadow: 1px 1px 4px #000;
     }
   </style>
 </head>
 <body>
-  <h1>🎞️ The Otter & Doggo Tape</h1>
-  <p>From Doggo, with all my heart 💜</p>
-  <button onclick="location.href='game.html'">▶️ Play</button>
+  <button class="play-heart" onclick="location.href='game.html'">❤️</button>
+  <div class="overlay-text">Press Doggo’s heart to begin the tape…</div>
 </body>
 </html>
+
