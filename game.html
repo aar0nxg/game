@@ -79,6 +79,21 @@
       color: black;
       box-shadow: 0 0 10px #ff99cc;
     }
+
+    .scene-image {
+      width: 100%;
+      max-width: 450px;
+      display: block;
+      margin: 0 auto 30px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+      transition: opacity 1s ease;
+      opacity: 0;
+    }
+
+    .scene-image.visible {
+      opacity: 1;
+    }
   </style>
 </head>
 <body>
@@ -88,6 +103,7 @@
   </audio>
 
   <div class="avatar" id="avatar" style="background-image: url('doggo.png');"></div>
+  <img id="sceneImage" class="scene-image" src="" alt="scene image" />
   <div class="dialogue" id="dialogue">Welcome, Otter. Doggo is waiting for you 💬</div>
   <div class="choices" id="choices"></div>
 
@@ -95,6 +111,7 @@
     const dialogueEl = document.getElementById("dialogue");
     const choicesEl = document.getElementById("choices");
     const avatarEl = document.getElementById("avatar");
+    const sceneImage = document.getElementById("sceneImage");
 
     let mood = 0;
     let scene = 0;
@@ -102,6 +119,7 @@
     const story = [
       {
         avatar: 'doggo.png',
+        image: 'scene1.png',
         text: "Doggo feels a little forgotten... Otter’s been so busy lately 😔",
         choices: [
           { text: "💌 Send a surprise message", change: +1 },
@@ -111,6 +129,7 @@
       },
       {
         avatar: 'doggo.png',
+        image: 'scene2.png',
         text: "Doggo is stressed with school. He feels like he’s losing his spark 💔",
         choices: [
           { text: "🎧 Play your shared playlist", change: +1 },
@@ -120,6 +139,7 @@
       },
       {
         avatar: 'doggo.png',
+        image: 'scene3.png',
         text: "Long distance is so hard... Doggo misses your hugs the most 🥺",
         choices: [
           { text: "🫂 Send a virtual hug", change: +1 },
@@ -154,6 +174,10 @@
       if (scene < story.length) {
         const s = story[scene];
         avatarEl.style.backgroundImage = `url('${s.avatar}')`;
+        sceneImage.src = s.image;
+        sceneImage.classList.remove("visible");
+        setTimeout(() => sceneImage.classList.add("visible"), 50);
+
         typeWriter(s.text, () => {
           choicesEl.innerHTML = "";
           s.choices.forEach((c) => {
@@ -170,6 +194,9 @@
       } else {
         const endText = mood >= 2 ? endingGood : endingBad;
         avatarEl.style.backgroundImage = `url('${mood >= 2 ? "doggo.png" : "sad_doggo.png"}')`;
+        sceneImage.src = mood >= 2 ? "scene3.png" : "scene3.png"; // you can update with ending image if needed
+        sceneImage.classList.remove("visible");
+        setTimeout(() => sceneImage.classList.add("visible"), 50);
         typeWriter(endText);
         choicesEl.innerHTML = "";
       }
