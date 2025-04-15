@@ -192,8 +192,10 @@
         sceneImage.src = s.image;
         sceneImage.className = "scene-image visible";
 
+        // ✨ FIX 1: clear buttons while typing
+        choicesEl.innerHTML = "";
+
         typeWriter(s.text, () => {
-          choicesEl.innerHTML = "";
           s.choices.forEach((c) => {
             const btn = document.createElement("button");
             btn.innerText = c.text;
@@ -216,22 +218,25 @@
         sceneImage.src = finalImage;
         sceneImage.className = finalClass;
 
+        // ✨ FIX 2: hide all old buttons at ending
+        choicesEl.innerHTML = "";
+
         typeWriter(finalText, () => {
-  const replayBtn = document.createElement("button");
-  replayBtn.innerText = "🔁 Watch the tape again";
-  replayBtn.onclick = () => window.location.href = "index.html";
-  replayBtn.style.marginTop = "20px";
-  replayBtn.style.background = "#220033";
-  replayBtn.style.border = "2px solid #ff99cc";
-  replayBtn.style.fontSize = "1em";
-  replayBtn.style.padding = "12px";
-  replayBtn.style.borderRadius = "8px";
-  replayBtn.style.color = "white";
-  replayBtn.style.boxShadow = "0 0 12px #ff66aa";
-  replayBtn.onmouseover = () => replayBtn.style.background = "#ff66aa";
-  replayBtn.onmouseout = () => replayBtn.style.background = "#220033";
-  choicesEl.appendChild(replayBtn);
-});
+          const replayBtn = document.createElement("button");
+          replayBtn.innerText = "🔁 Watch the tape again";
+          replayBtn.onclick = () => window.location.href = "index.html";
+          replayBtn.style.marginTop = "20px";
+          replayBtn.style.background = "#220033";
+          replayBtn.style.border = "2px solid #ff99cc";
+          replayBtn.style.fontSize = "1em";
+          replayBtn.style.padding = "12px";
+          replayBtn.style.borderRadius = "8px";
+          replayBtn.style.color = "white";
+          replayBtn.style.boxShadow = "0 0 12px #ff66aa";
+          replayBtn.onmouseover = () => replayBtn.style.background = "#ff66aa";
+          replayBtn.onmouseout = () => replayBtn.style.background = "#220033";
+          choicesEl.appendChild(replayBtn);
+        });
       }
     }
 
@@ -239,4 +244,3 @@
   </script>
 </body>
 </html>
-
