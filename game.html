@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,6 +37,12 @@
   </style>
 </head>
 <body>
+  <!-- Background music -->
+  <audio autoplay loop preload="auto">
+    <source src="music.mp3" type="audio/mp3">
+    Your browser does not support the audio element.
+  </audio>
+
   <div class="avatar" id="avatar" style="background-image: url('doggo.png');"></div>
   <div class="dialogue" id="dialogue">Welcome, Otter. Doggo is waiting for you 💬</div>
   <div class="choices" id="choices"></div>
@@ -70,44 +75,4 @@
         ]
       },
       {
-        avatar: 'doggo.png',
-        text: "Long distance is so hard... Doggo misses your hugs the most 🥺",
-        choices: [
-          { text: "🫂 Send a virtual hug", change: +1 },
-          { text: "🎥 Send a sweet video", change: +1 },
-          { text: "😔 Say nothing", change: -1 }
-        ]
-      }
-    ];
-
-    const endingGood = "No matter the distance, and no matter what happens… you are never gonna lose me. I love you with all my heart. Whether I come to BD or stay in Canada… our hearts are one, baby. Forever and for eternity. 💖";
-    const endingBad = "Doggo still loves you… but his heart is hurting a little. Maybe next time, Otter. 💔";
-
-    function showScene() {
-      if (scene < story.length) {
-        const s = story[scene];
-        avatarEl.style.backgroundImage = `url('${s.avatar}')`;
-        dialogueEl.innerText = s.text;
-        choicesEl.innerHTML = "";
-        s.choices.forEach((c, i) => {
-          const btn = document.createElement("button");
-          btn.innerText = c.text;
-          btn.onclick = () => {
-            mood += c.change;
-            scene++;
-            showScene();
-          };
-          choicesEl.appendChild(btn);
-        });
-      } else {
-        // ENDING
-        avatarEl.style.backgroundImage = `url('${mood >= 2 ? "doggo.png" : "sad_doggo.png"}')`;
-        dialogueEl.innerText = mood >= 2 ? endingGood : endingBad;
-        choicesEl.innerHTML = "";
-      }
-    }
-
-    showScene();
-  </script>
-</body>
-</html>
+        avatar: '
